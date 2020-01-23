@@ -24,9 +24,14 @@ router.get('/:id/shoppingList', (req, res, next) => {
     })
 })
 
-router.use((err, req, res, next) => {
-    console.log(err);
-    res.json({message: "error!!!"})
+router.get('/:id/instructions', (req, res, next) => {
+    Recipes.getInstructions(req.params.id)
+    .then(instructions => {
+        res.json(instructions);
+    })
+    .catch(err => {
+        next(err)
+    })
 })
 
 module.exports = router;

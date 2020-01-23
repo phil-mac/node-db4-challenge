@@ -18,3 +18,9 @@ touch server.js
 
 knex init
 > setup knexfile.js
+knex migrate:make [migration-name]
+> write migration in file
+knex migrate:latest
+knex seed:make 00-cleanup
+knex seed:make 01-recipes
+knex seed:run
