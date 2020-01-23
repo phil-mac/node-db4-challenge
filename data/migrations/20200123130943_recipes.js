@@ -15,7 +15,7 @@ exports.up = function(knex) {
     tbl.increments()
 
     tbl.integer('step_number').notNullable()
-    tbl.string('instructions').notNullable()
+    tbl.string('instructions', 1024).notNullable()
 
     tbl.integer('recipe_id')
         .unsigned().notNullable()
@@ -24,15 +24,19 @@ exports.up = function(knex) {
         .onUpdate('CASCADE')
 
     tbl.integer('ingredient_id')
-        .unsigned().notNullable()
+        .unsigned()
         .references('id').inTable('ingredients')
         .onDelete('RESTRICT')
         .onUpdate('CASCADE')
 
-    tbl.float('quantity').notNullable()
+    tbl.float('quantity')
   })
 };
 
 exports.down = function(knex) {
-  
+  return knex.schema
+    .dropTableIfExists('steps')
+    .dropTableIfExists('recipes')
+    .dropTableIfExists('ingredients')
+
 };
